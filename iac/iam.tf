@@ -20,11 +20,11 @@ resource "aws_iam_role" "lambda" {
 }
 
 resource "aws_iam_policy" "lambda" {
-    name        = "LambdaPolicy"
-    path        = "/"
+    name = "LambdaPolicy"
+    path = "/"
     description = "Provides write permissions to CloudWatch Logs, S3 buckets and EMR steps"
-    policy      = <<EOF
-    {
+    policy = <<EOF
+{
         "Version": "2012-10-17",
         "Statement": [
         {
@@ -50,19 +50,16 @@ resource "aws_iam_policy" "lambda" {
             ],
             "Resource": "*"
         },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iam:PassRole"
+        {            
+            "Action": "iam:PassRole",
             ],
-            "Resource": [
-                "arn:aws:iam::693916676536:role/EMR_DefaultRole",
-                "arn:aws:iam::693916676536:role/EMR_EC2_DefaultRole"
-            ]
+            "Resource": ["arn:aws:iam::693916676536:role/EMR_DefaultRole",
+                        "arn:aws:iam::693916676536:role/EMR_EC2_DefaultRole"],
+            "Effect": "Allow"
         }
     ]
-    }
-    EOF
+}
+EOF
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_attach" {
