@@ -5,7 +5,7 @@ spark = (
     .getOrCreate()
 )
 
-# Ler os dados do ENEM 2020
+# Ler os dados do RAIS 2020
 rais = (
     spark
     .read
