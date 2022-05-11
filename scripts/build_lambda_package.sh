@@ -35,18 +35,14 @@ cd $PACKAGE
 # Declara variavel que localiza a função lambda para reutilização no código.
 LAMBDA_FUNCTION=../../etl/lambda_function.py
 
-echo basename $SCRIPT_FOLDER
 # Verifica se o arquivo lambda_function.py existe
 if [ -f $LAMBDA_FUNCTION ]
 then
     echo "============================================="
     echo "Copiando função Handler..."
-    cp $LAMBDA_FUNCTION $PACKAGE
+    cp $LAMBDA_FUNCTION .
     echo "Compactando arquivo lambda_function_payload.zip"
-    cwd=$(pwd)
-    cd $PACKAGE
     zip -r9 ../lambda_function_payload.zip . #Compacta o pacote para o deploy
-    cd $cwd
     echo "Arquivo compactado com sucesso!"
     echo "============================================="
 fi
