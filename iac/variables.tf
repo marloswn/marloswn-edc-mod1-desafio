@@ -10,3 +10,7 @@ variable "environment" {
 variable "account" {
   default = "693916676536"
 }
+
+variable "lambda_function_name"{
+  default = "ExecutaEMR"
+}
