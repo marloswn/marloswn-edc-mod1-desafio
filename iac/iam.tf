@@ -1,6 +1,6 @@
 resource "aws_iam_role" "lambda" {
-    name = "LambdaRole"
-    assume_role_policy = <<EOF
+  name               = "LambdaRole"
+  assume_role_policy = <<EOF
     {
         "Version": "2012-10-17",
         "Statement": [{
@@ -13,17 +13,17 @@ resource "aws_iam_role" "lambda" {
         }]
     }
     EOF
-    tags = {
-        IES = "IGTI"
-        CURSO = "EDC"
-    }
+  tags = {
+    IES   = "IGTI"
+    CURSO = "EDC"
+  }
 }
 
 resource "aws_iam_policy" "lambda" {
-    name = "LambdaPolicy"
-    path = "/"
-    description = "Provides write permissions to CloudWatch Logs, S3 buckets and EMR steps"
-    policy = <<EOF
+  name        = "LambdaPolicy"
+  path        = "/"
+  description = "Provides write permissions to CloudWatch Logs, S3 buckets and EMR steps"
+  policy      = <<EOF
 {
         "Version": "2012-10-17",
         "Statement": [
@@ -62,6 +62,6 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_attach" {
-    role = aws_iam_role.lambda.name
-    policy_arn = aws_iam_policy.lambda.arn
+  role       = aws_iam_role.lambda.name
+  policy_arn = aws_iam_policy.lambda.arn
 }
