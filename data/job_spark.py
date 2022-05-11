@@ -1,58 +1,27 @@
-<<<<<<< HEAD
-from pyspark.sql.functions import mean, max, min, col, count
 from pyspark.sql import SparkSession
 
 spark = (
-    SparkSession.builder.appName('TrabalhoPratico')
+    SparkSession.builder.appName('Desafio')
     .getOrCreate()
 )
 
 # Ler os dados do ENEM 2020
-enem = (
+rais = (
     spark
     .read
-    .format('csv')
+    .format('txt')
     .option('header', True)
     .option('inferSchema', True)
     .option('delimiter', ';')
-    .load('s3://datalake-marlos-693916676536/raw-data/')
+    .load('s3://datalake-marlos-tf-producao-693916676536/raw/')
 )
 
 # Salvando em formato Parquet
 (
-    enem
+    rais
     .write
     .mode('overwrite')
     .format('parquet')
     #.partitionBy('year')
-    .save('s3://datalake-marlos-693916676536/consumer-zone/')
-=======
-from pyspark.sql.functions import mean, max, min, col, count
-from pyspark.sql import SparkSession
-
-spark = (
-    SparkSession.builder.appName('TrabalhoPratico')
-    .getOrCreate()
-)
-
-# Ler os dados do ENEM 2020
-enem = (
-    spark
-    .read
-    .format('csv')
-    .option('header', True)
-    .option('inferSchema', True)
-    .option('delimiter', ';')
-    .load('s3://datalake-marlos-693916676536/raw-data/')
-)
-
-# Salvando em formato Parquet
-(
-    enem
-    .write
-    .mode('overwrite')
-    .format('parquet')
-    #.partitionBy('year')
-    .save('s3://datalake-marlos-693916676536/consumer-zone/')
->>>>>>> 9d4f01a19da6b8491c5527babb9132a6b558d660
+    .save('s3://datalake-marlos-tf-producao-693916676536/staging/')
 )
