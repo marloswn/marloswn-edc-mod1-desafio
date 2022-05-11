@@ -1,18 +1,22 @@
 resource "aws_iam_role" "lambda" {
   name               = "LambdaRole"
+
   assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
-        "Version": "2012-10-17",
-        "Statement": [{
-            "Action": "sts:AssumeRole",
-            "Principal": {
-                    "Service": "lambda.amazonaws.com"
-            },
-            "Effect": "Allow",
-            "Sid": "AssumeRole"
-        }]
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": "AssumeRole"
     }
-    EOF
+  ]
+}
+EOF
+
   tags = {
     IES   = "IGTI"
     CURSO = "EDC"
@@ -23,10 +27,11 @@ resource "aws_iam_policy" "lambda" {
   name        = "LambdaPolicy"
   path        = "/"
   description = "Provides write permissions to CloudWatch Logs, S3 buckets and EMR steps"
+
   policy      = <<EOF
 {
-        "Version": "2012-10-17",
-        "Statement": [
+    "Version": "2012-10-17",
+    "Statement": [
         {
             "Effect": "Allow",
             "Action": [
@@ -53,7 +58,7 @@ resource "aws_iam_policy" "lambda" {
         {            
             "Action": "iam:PassRole",
             "Resource": ["arn:aws:iam::693916676536:role/EMR_DefaultRole",
-                        "arn:aws:iam::693916676536:role/EMR_EC2_DefaultRole"],
+                         "arn:aws:iam::693916676536:role/EMR_EC2_DefaultRole"],
             "Effect": "Allow"
         }
     ]
