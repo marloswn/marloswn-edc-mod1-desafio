@@ -10,11 +10,7 @@ spark = (
 rais = (
     spark
     .read
-    .csv('s3://datalake-marlos-tf-producao-693916676536/raw/')
-    .option('header', True)
-    .option('inferSchema', True)
-    .option('delimiter', ';')
-    .option('encoding', 'latin1')
+    .csv('s3://datalake-marlos-tf-producao-693916676536/raw/', inferSchema=True, header=True, sep=';', encoding="latin1")
 )
 
 # Tratando os dados
